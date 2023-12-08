@@ -15,5 +15,43 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
+    <SplitView IsPaneOpen="True"
+               DisplayMode="Inline"
+               OpenPaneLength="300"
+               Background="#1a1820"
+               PaneBackground="#28262e">
+        <SplitView.Pane>
+            <Grid RowDefinitions="32, 8, 32, 16, *" Margin="12">
+                <Grid Grid.Row="0">
+                    <Button Command="{Binding CreateWarehouseCommand}"
+                            Background="Transparent" CornerRadius="8"
+                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                            Width="36" Height="36"
+                            FontSize="18">
+                        +
+                    </Button>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Warehouses</TextBlock>
+                </Grid>
+                <TextBox Grid.Row="2" MaxLines="1" Watermark="Search"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0"
+                         CornerRadius="8" />
+                <ListBox Grid.Row="4" ItemsSource="{Binding Manager.Warehouses}"
+                         Background="Transparent"
+                         BorderThickness="1"
+                         BorderBrush="#1a1820"
+                         CornerRadius="8">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </SplitView.Pane>
+        <Grid />
+    </SplitView>
 
 </Window>

@@ -1,12 +1,15 @@
 namespace CourseWork.Models;
 
-public abstract class Warehouse : IObject, ICollection
+public class Warehouse : IObject, ICollection
 {
-    protected Warehouse(string name, int size)
+    public Warehouse(string name, int size, string address)
     {
         Name = name;
         Size = size;
+        Address = address;
     }
+
+    public string Address { get; }
 
     //private ObservableCollection<Product> Products { get; } = new();
 
