@@ -1,6 +1,5 @@
 using System;
 using Avalonia;
-using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using CourseWork.ViewModels;
 using ReactiveUI;
@@ -16,11 +15,7 @@ public partial class WarehouseWindow : ReactiveWindow<WarehouseWindowViewModel>
         this.AttachDevTools();
 #endif
 
-        this.WhenActivated(action => action(ViewModel!.CreateWarehouseCommand.Subscribe(Close)));
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
+        this.WhenActivated(_ =>
+            this.WhenAnyObservable(x => x.ViewModel!.CreateWarehouseCommand).Subscribe(Close));
     }
 }

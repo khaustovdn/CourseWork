@@ -10,12 +10,13 @@
         Width="340" Height="360"
         Background="#1a1820">
 
-    <Grid RowDefinitions="56, 24, 56, 24, 56, 24, 56"
+    <Grid RowDefinitions="72, 16, 72, 16, 72, 16, 36"
           Width="300" Height="310">
         <TextBox Grid.Row="0" CornerRadius="8" Watermark="Name" Text="{Binding Name}" />
         <TextBox Grid.Row="2" CornerRadius="8" Watermark="Size" Text="{Binding Size}" />
         <TextBox Grid.Row="4" CornerRadius="8" Watermark="Address" Text="{Binding Address}" />
         <Button Grid.Row="6" Command="{Binding CreateWarehouseCommand}"
+                IsEnabled="{Binding IsEnabled}"
                 Background="Transparent" CornerRadius="8" Width="120"
                 HorizontalContentAlignment="Center"
                 HorizontalAlignment="Center">

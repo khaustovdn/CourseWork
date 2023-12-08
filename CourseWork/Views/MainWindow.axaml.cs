@@ -15,12 +15,11 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             action(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
     }
 
-    private async Task DoShowDialogAsync(InteractionContext<WarehouseWindowViewModel,
-        Warehouse> interaction)
+    private async Task DoShowDialogAsync(InteractionContext<WarehouseWindowViewModel, Warehouse?> interaction)
     {
         var dialog = new WarehouseWindow { DataContext = interaction.Input };
 
-        var result = await dialog.ShowDialog<Warehouse>(this);
+        var result = await dialog.ShowDialog<Warehouse?>(this);
         interaction.SetOutput(result);
     }
 }
