@@ -5,7 +5,10 @@
       <map>
         <entry key="CourseWork/App.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/MainWindow.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/ManagerWindow.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/ProductWindow.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/RefrigeratedWarehouseView.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/TechnicalWarehouseView.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/WarehouseWindow.axaml" value="CourseWork/CourseWork.csproj" />
       </map>
     </option>

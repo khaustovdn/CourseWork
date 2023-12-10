@@ -6,9 +6,9 @@ using ReactiveUI;
 
 namespace CourseWork.Views;
 
-public partial class WarehouseWindow : ReactiveWindow<WarehouseWindowViewModel>
+public partial class ManagerWindow : ReactiveWindow<ManagerWindowViewModel>
 {
-    public WarehouseWindow()
+    public ManagerWindow()
     {
         InitializeComponent();
 #if DEBUG
@@ -16,6 +16,6 @@ public partial class WarehouseWindow : ReactiveWindow<WarehouseWindowViewModel>
 #endif
 
         this.WhenActivated(_ =>
-            this.WhenAnyObservable(x => x.ViewModel!.CreateWarehouseCommand).Subscribe(Close));
+            this.WhenAnyObservable(x => x.ViewModel!.CreateCommand).Subscribe(Close));
     }
 }

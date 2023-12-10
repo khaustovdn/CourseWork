@@ -6,10 +6,10 @@ public class Manager : ICollection
 {
     public Manager()
     {
-        Warehouses = new ObservableCollection<Warehouse>();
+        Warehouses = new ObservableCollection<IWarehouse>();
     }
 
-    public ObservableCollection<Warehouse> Warehouses { get; }
+    public ObservableCollection<IWarehouse> Warehouses { get; }
 
     public void Add(object? o)
     {
