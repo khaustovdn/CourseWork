@@ -40,7 +40,8 @@
                          Background="Transparent"
                          BorderThickness="1"
                          BorderBrush="#1a1820"
-                         CornerRadius="8">
+                         CornerRadius="8"
+                         SelectedItem="{Binding SelectedWarehouse}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -51,7 +52,12 @@
                 </ListBox>
             </Grid>
         </SplitView.Pane>
-        <Grid />
+        <Grid RowDefinitions="72,72,72,72">
+            <TextBlock Grid.Row="0" Text="{Binding SelectedWarehouse.Name, StringFormat='Name: {0}'}" />
+            <TextBlock Grid.Row="1" Text="{Binding SelectedWarehouse.Size, StringFormat='Size: {0}'}" />
+            <TextBlock Grid.Row="2" Text="{Binding SelectedWarehouse.Address, StringFormat='Address: {0}'}" />
+            <ContentControl Grid.Row="3" Content="{Binding SelectedWarehouseControl}" />
+        </Grid>
     </SplitView>
 
 </Window>

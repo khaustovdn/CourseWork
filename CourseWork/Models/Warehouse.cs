@@ -9,7 +9,7 @@ public class Warehouse : IWarehouse, ICollection
         Address = address;
     }
 
-    //private ObservableCollection<Product> Products { get; } = new();
+    //public ObservableCollection<IProduct> Products { get; } = new();
 
     public void Add(object? o)
     {

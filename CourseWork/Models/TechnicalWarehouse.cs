@@ -2,10 +2,10 @@ namespace CourseWork.Models;
 
 public class TechnicalWarehouse : Warehouse
 {
-    public TechnicalWarehouse(string? name, int size, string? address, int powerSupplyСlass) : base(name, size, address)
+    public TechnicalWarehouse(string? name, int size, string? address, int powerSupplyLevel) : base(name, size, address)
     {
-        PowerSupplyСlass = powerSupplyСlass;
+        PowerSupplyLevel = powerSupplyLevel;
     }
 
-    public int PowerSupplyСlass { get; }
+    public int PowerSupplyLevel { get; }
 }

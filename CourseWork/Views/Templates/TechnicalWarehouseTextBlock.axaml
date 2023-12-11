@@ -4,10 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:DataType="vm:ManagerWindowViewModel"
-             x:Class="CourseWork.Views.Templates.TechnicalWarehouseView">
-
-    <Grid RowDefinitions="36, 36">
-        <TextBox Grid.Row="0" CornerRadius="8" Watermark="Power Supply Сlass" Text="{Binding PowerSupplyLevel}" />
-    </Grid>
+             x:Class="CourseWork.Views.Templates.TechnicalWarehouseTextBlock"
+             x:DataType="vm:MainWindowViewModel">
+    <TextBlock Text="{Binding TechnicalWarehouse.PowerSupplyLevel, StringFormat='Power Supply Level: {0}'}" />
 </UserControl>

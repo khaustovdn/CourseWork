@@ -1,4 +1,5 @@
 using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using CourseWork.Models;
 using CourseWork.Views.Templates;
@@ -15,7 +16,7 @@ public class ManagerWindowViewModel : ReactiveValidationObject
     private string? _powerSupplyLevel;
     private string? _size;
     private string? _temperature;
-    private UserControl _warehouseType;
+    private UserControl? _warehouseType;
 
     public ManagerWindowViewModel()
     {
@@ -38,16 +39,11 @@ public class ManagerWindowViewModel : ReactiveValidationObject
                  (b4 && !string.IsNullOrWhiteSpace(b6) && b6.Length < 4 && int.TryParse(b6, out _) &&
                   int.Parse(b6) > 0 && int.Parse(b6) <= 10)));
 
-        _warehouseType = new RefrigeratedWarehouseView();
-        _action = false;
-
-        CreateCommand = Action
-            ? ReactiveCommand.Create(
-                () => SetWarehouseType(new TechnicalWarehouse(Name, int.Parse(Size!), Address, int.Parse("34"))),
-                isValid)
-            : ReactiveCommand.Create(
-                () => SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address, int.Parse("34"))),
-                isValid);
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action
+            ? SetWarehouseType(new TechnicalWarehouse(Name, int.Parse(Size!), Address,
+                int.Parse(PowerSupplyLevel!)))
+            : SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address,
+                int.Parse(Temperature!)))), isValid);
     }
 
     private bool Action
@@ -56,7 +52,7 @@ public class ManagerWindowViewModel : ReactiveValidationObject
         set => this.RaiseAndSetIfChanged(ref _action, value);
     }
 
-    public UserControl WarehouseType
+    public UserControl? WarehouseType
     {
         get => _warehouseType;
         set => this.RaiseAndSetIfChanged(ref _warehouseType, value);
@@ -99,12 +95,12 @@ public class ManagerWindowViewModel : ReactiveValidationObject
         if (type == "refrigerated")
         {
             Action = false;
-            WarehouseType = new RefrigeratedWarehouseView();
+            WarehouseType = new RefrigeratedWarehouseTextBox();
         }
         else
         {
             Action = true;
-            WarehouseType = new TechnicalWarehouseView();
+            WarehouseType = new TechnicalWarehouseTextBox();
         }
     }
 
@@ -114,7 +110,7 @@ public class ManagerWindowViewModel : ReactiveValidationObject
         {
             TechnicalWarehouse technicalWarehouse => new TechnicalWarehouse(
                 technicalWarehouse.Name, technicalWarehouse.Size, technicalWarehouse.Address,
-                technicalWarehouse.PowerSupplyСlass),
+                technicalWarehouse.PowerSupplyLevel),
             RefrigeratedWarehouse refrigeratedWarehouse => new RefrigeratedWarehouse(
                 refrigeratedWarehouse.Name, refrigeratedWarehouse.Size, refrigeratedWarehouse.Address,
                 refrigeratedWarehouse.Temperature),

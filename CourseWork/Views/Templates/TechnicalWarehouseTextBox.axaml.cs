@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace CourseWork.Views.Templates;
 
-public partial class RefrigeratedWarehouseView : UserControl
+public partial class TechnicalWarehouseTextBox : UserControl
 {
-    public RefrigeratedWarehouseView()
+    public TechnicalWarehouseTextBox()
     {
         InitializeComponent();
     }

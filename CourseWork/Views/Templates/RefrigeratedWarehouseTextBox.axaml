@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ManagerWindowViewModel"
-             x:Class="CourseWork.Views.Templates.RefrigeratedWarehouseView">
+             x:Class="CourseWork.Views.Templates.RefrigeratedWarehouseTextBox">
 
     <Grid RowDefinitions="36, 36">
         <TextBox Grid.Row="0" CornerRadius="8" Watermark="Temperature" Text="{Binding Temperature}" />
