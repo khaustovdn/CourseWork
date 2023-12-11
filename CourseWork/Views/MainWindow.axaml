@@ -52,12 +52,7 @@
                 </ListBox>
             </Grid>
         </SplitView.Pane>
-        <Grid RowDefinitions="72,72,72,72">
-            <TextBlock Grid.Row="0" Text="{Binding SelectedWarehouse.Name, StringFormat='Name: {0}'}" />
-            <TextBlock Grid.Row="1" Text="{Binding SelectedWarehouse.Size, StringFormat='Size: {0}'}" />
-            <TextBlock Grid.Row="2" Text="{Binding SelectedWarehouse.Address, StringFormat='Address: {0}'}" />
-            <ContentControl Grid.Row="3" Content="{Binding SelectedWarehouseControl}" />
-        </Grid>
+        <ContentControl Content="{Binding SelectedWarehouseControl}" />
     </SplitView>
 
 </Window>

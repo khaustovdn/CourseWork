@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System;
+using System.Reactive.Linq;
 using System.Windows.Input;
 using Avalonia.Controls;
 using CourseWork.Models;
@@ -9,10 +10,8 @@ namespace CourseWork.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    private RefrigeratedWarehouse? _refrigeratedWarehouse;
     private IWarehouse? _selectedWarehouse;
     private UserControl? _selectedWarehouseControl;
-    private TechnicalWarehouse? _technicalWarehouse;
 
     public MainWindowViewModel()
     {
@@ -24,18 +23,15 @@ public class MainWindowViewModel : ViewModelBase
             var result = await ShowDialog.Handle(manager);
             if (result != null) Manager.Add(result);
         });
-    }
 
-    public RefrigeratedWarehouse? RefrigeratedWarehouse
-    {
-        get => _refrigeratedWarehouse;
-        private set => this.RaiseAndSetIfChanged(ref _refrigeratedWarehouse, value);
-    }
-
-    public TechnicalWarehouse? TechnicalWarehouse
-    {
-        get => _technicalWarehouse;
-        private set => this.RaiseAndSetIfChanged(ref _technicalWarehouse, value);
+        this.WhenAnyValue(x => x.SelectedWarehouse).Subscribe(newValue =>
+        {
+            if (newValue is not null)
+                SelectedWarehouseControl =
+                    SelectedWarehouse is RefrigeratedWarehouse
+                        ? new RefrigeratedWarehouseTextBlock()
+                        : new TechnicalWarehouseTextBlock();
+        });
     }
 
     public ICommand CreateWarehouseCommand { get; }
@@ -46,23 +42,16 @@ public class MainWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _selectedWarehouseControl, value);
     }
 
-    public IWarehouse SelectedWarehouse
+    public IWarehouse? SelectedWarehouse
     {
         get
         {
-            switch (_selectedWarehouse)
+            return _selectedWarehouse switch
             {
-                case RefrigeratedWarehouse refrigeratedWarehouse:
-                    SelectedWarehouseControl = new RefrigeratedWarehouseTextBlock();
-                    RefrigeratedWarehouse = refrigeratedWarehouse;
-                    return refrigeratedWarehouse;
-                case TechnicalWarehouse technicalWarehouse:
-                    SelectedWarehouseControl = new TechnicalWarehouseTextBlock();
-                    TechnicalWarehouse = technicalWarehouse;
-                    return technicalWarehouse;
-                default:
-                    return null!;
-            }
+                RefrigeratedWarehouse refrigeratedWarehouse => refrigeratedWarehouse,
+                TechnicalWarehouse technicalWarehouse => technicalWarehouse,
+                _ => null
+            };
         }
         set => this.RaiseAndSetIfChanged(ref _selectedWarehouse, value);
     }

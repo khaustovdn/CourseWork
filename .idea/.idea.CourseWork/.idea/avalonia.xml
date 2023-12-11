@@ -13,6 +13,8 @@
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseTextBlock.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseTextBox.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseView.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/WarehouseInfoContent.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/WarehouseInfoTemplate.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/WarehouseWindow.axaml" value="CourseWork/CourseWork.csproj" />
       </map>
     </option>

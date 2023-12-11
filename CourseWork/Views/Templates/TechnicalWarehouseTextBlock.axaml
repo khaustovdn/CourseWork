@@ -6,5 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CourseWork.Views.Templates.TechnicalWarehouseTextBlock"
              x:DataType="vm:MainWindowViewModel">
-    <TextBlock Text="{Binding TechnicalWarehouse.PowerSupplyLevel, StringFormat='Power Supply Level: {0}'}" />
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+        <TextBlock Grid.Row="0" Text="{Binding SelectedWarehouse.Name, StringFormat='Name: {0}'}" />
+        <TextBlock Grid.Row="1" Text="{Binding SelectedWarehouse.Size, StringFormat='Size: {0}'}" />
+        <TextBlock Grid.Row="2" Text="{Binding SelectedWarehouse.Address, StringFormat='Address: {0}'}" />
+        <TextBlock Grid.Row="3"
+                   Text="{Binding SelectedWarehouse.ConvertToTechnicalWarehouse.PowerSupplyLevel, StringFormat='Power Supply Level: {0}'}" />
+    </Grid>
+
 </UserControl>
