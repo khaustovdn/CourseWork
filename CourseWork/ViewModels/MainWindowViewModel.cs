@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Avalonia.Controls;
 using CourseWork.Models;
 using CourseWork.Views.Templates;
+using DynamicData.Binding;
 using ReactiveUI;
 
 namespace CourseWork.ViewModels;
@@ -24,13 +25,15 @@ public class MainWindowViewModel : ViewModelBase
             if (result != null) Manager.Add(result);
         });
 
-        this.WhenAnyValue(x => x.SelectedWarehouse).Subscribe(newValue =>
+        this.WhenValueChanged(x => x.SelectedWarehouse).Subscribe(newValue =>
         {
-            if (newValue is not null)
-                SelectedWarehouseControl =
-                    SelectedWarehouse is RefrigeratedWarehouse
-                        ? new RefrigeratedWarehouseTextBlock()
-                        : new TechnicalWarehouseTextBlock();
+            if (newValue is null) return;
+            SelectedWarehouseControl = SelectedWarehouse switch
+            {
+                RefrigeratedWarehouse => new RefrigeratedWarehouseInfoControl(),
+                TechnicalWarehouse => new TechnicalWarehouseInfoControl(),
+                _ => SelectedWarehouseControl
+            };
         });
     }
 

@@ -10,4 +10,5 @@
     <Grid RowDefinitions="36, 36">
         <TextBox Grid.Row="0" CornerRadius="8" Watermark="Temperature" Text="{Binding Temperature}" />
     </Grid>
+
 </UserControl>

@@ -4,14 +4,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CourseWork.Views.Templates.RefrigeratedWarehouseTextBlock"
+             x:Class="CourseWork.Views.Templates.RefrigeratedWarehouseInfoControl"
              x:DataType="vm:MainWindowViewModel">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto">
-        <TextBlock Grid.Row="0" Text="{Binding SelectedWarehouse.Name, StringFormat='Name: {0}'}" />
-        <TextBlock Grid.Row="1" Text="{Binding SelectedWarehouse.Size, StringFormat='Size: {0}'}" />
-        <TextBlock Grid.Row="2" Text="{Binding SelectedWarehouse.Address, StringFormat='Address: {0}'}" />
-        <TextBlock Grid.Row="3"
+    <Grid RowDefinitions="Auto,Auto">
+        <ContentControl x:Name="ContentControl" />
+        <TextBlock Grid.Row="1"
                    Text="{Binding SelectedWarehouse.ConvertToRefrigeratedWarehouse.Temperature, StringFormat='Temperature: {0}'}" />
     </Grid>
 

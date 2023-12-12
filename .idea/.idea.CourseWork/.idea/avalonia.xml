@@ -7,13 +7,16 @@
         <entry key="CourseWork/Views/MainWindow.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/ManagerWindow.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/ProductWindow.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/RefregiratedWarehouseInfoControl.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefregiratedWarehouseTextBlock.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefrigeratedWarehouseTextBox.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefrigeratedWarehouseView.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/TechnicalWarehouseInfoControl.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseTextBlock.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseTextBox.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/TechnicalWarehouseView.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/WarehouseInfoContent.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/WarehouseInfoControl.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/WarehouseInfoTemplate.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/WarehouseWindow.axaml" value="CourseWork/CourseWork.csproj" />
       </map>

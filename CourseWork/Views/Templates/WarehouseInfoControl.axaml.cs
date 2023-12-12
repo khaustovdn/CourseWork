@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace CourseWork.Views.Templates;
 
-public partial class WarehouseInfoContent : UserControl
+public partial class WarehouseInfoControl : UserControl
 {
-    public WarehouseInfoContent()
+    public WarehouseInfoControl()
     {
         InitializeComponent();
     }

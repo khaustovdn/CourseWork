@@ -8,6 +8,7 @@
              x:Class="CourseWork.Views.Templates.TechnicalWarehouseTextBox">
 
     <Grid RowDefinitions="36, 36">
-        <TextBox Grid.Row="0" CornerRadius="8" Watermark="Power Supply Сlass" Text="{Binding PowerSupplyLevel}" />
+        <TextBox Grid.Row="0" CornerRadius="8" Watermark="Power Supply Level" Text="{Binding PowerSupplyLevel}" />
     </Grid>
+
 </UserControl>
