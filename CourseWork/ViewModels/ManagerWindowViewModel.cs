@@ -104,7 +104,7 @@ public class ManagerWindowViewModel : ReactiveValidationObject
         }
     }
 
-    private IWarehouse SetWarehouseType(IWarehouse warehouse)
+    private static IWarehouse SetWarehouseType(IWarehouse warehouse)
     {
         return warehouse switch
         {

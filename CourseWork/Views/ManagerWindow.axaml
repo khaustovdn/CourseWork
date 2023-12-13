@@ -10,9 +10,9 @@
         Width="340" Height="460"
         Background="#1a1820">
 
-    <Grid RowDefinitions="72, 72, 72, 72, 72, 72"
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
           Width="300" Height="400">
-        <SplitButton Grid.Row="0" Margin="0,0,0,36" Content="Warehouse Type" Width="300"
+        <SplitButton Grid.Row="0" Margin="0,16,0,16" Content="Warehouse Type" Width="300"
                      Command="{Binding SetAction}"
                      CommandParameter="refrigerated">
             <SplitButton.Flyout>
@@ -26,11 +26,11 @@
                 </MenuFlyout>
             </SplitButton.Flyout>
         </SplitButton>
-        <TextBox Grid.Row="1" Margin="0,0,0,36" CornerRadius="8" Watermark="Name" Text="{Binding Name}" />
-        <TextBox Grid.Row="2" Margin="0,0,0,36" CornerRadius="8" Watermark="Size" Text="{Binding Size}" />
-        <TextBox Grid.Row="3" Margin="0,0,0,36" CornerRadius="8" Watermark="Address" Text="{Binding Address}" />
+        <TextBox Grid.Row="1" Margin="0,16,0,16" CornerRadius="8" Watermark="Name" Text="{Binding Name}" />
+        <TextBox Grid.Row="2" Margin="0,16,0,16" CornerRadius="8" Watermark="Size" Text="{Binding Size}" />
+        <TextBox Grid.Row="3" Margin="0,16,0,16" CornerRadius="8" Watermark="Address" Text="{Binding Address}" />
         <ContentControl Grid.Row="4" Content="{Binding WarehouseType}" />
-        <Button Margin="0,0,0,36" Grid.Row="5" Command="{Binding CreateCommand}"
+        <Button Margin="0,16,0,16" Grid.Row="5" Command="{Binding CreateCommand}"
                 Background="Transparent" CornerRadius="8" Width="120"
                 HorizontalContentAlignment="Center"
                 HorizontalAlignment="Center">
