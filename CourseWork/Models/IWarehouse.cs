@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 
 namespace CourseWork.Models;
 
@@ -12,6 +13,6 @@ public interface IWarehouse
 
     public string? Address { get; }
     public int Size { get; }
-
+    public ObservableCollection<IProduct> Products { get; }
     public string? Name { get; }
 }

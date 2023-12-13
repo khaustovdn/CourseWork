@@ -1,6 +1,6 @@
 namespace CourseWork.Models;
 
-public abstract class Product
+public abstract class Product : IProduct
 {
     public string? Name;
     public int Size;
