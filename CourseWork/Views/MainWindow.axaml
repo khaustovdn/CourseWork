@@ -52,7 +52,12 @@
                 </ListBox>
             </Grid>
         </SplitView.Pane>
-        <ContentControl Content="{Binding SelectedWarehouseControl}" />
+        <Grid RowDefinitions="Auto, Auto">
+            <ContentControl Grid.Row="0" Content="{Binding SelectedWarehouseControl}" />
+            <DataGrid Grid.Row="1" Margin="20" x:Name="DataProducts"
+                      AutoGenerateColumns="True" IsReadOnly="True"
+                      GridLinesVisibility="All" />
+        </Grid>
     </SplitView>
 
 </Window>

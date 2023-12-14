@@ -41,8 +41,8 @@ public class ProductWindowViewModel : ReactiveObject
                   int.TryParse(b4, out _))));
 
         CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(selectedWarehouse is RefrigeratedWarehouse
-            ? SetProductType(new Product(Name, int.Parse(Size!), int.Parse(ExpirationDate!)))
-            : SetProductType(new Electronics(Name, int.Parse(Size!), int.Parse(WarrantyPeriod!)))), isValid);
+            ? SetProductType(new FoodProduct(Name, int.Parse(Size!), int.Parse(ExpirationDate!)))
+            : SetProductType(new ElectronicProduct(Name, int.Parse(Size!), int.Parse(WarrantyPeriod!)))), isValid);
     }
 
     public string? Name
@@ -75,16 +75,16 @@ public class ProductWindowViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _wareType, value);
     }
 
-    public ReactiveCommand<Unit, IWare> CreateCommand { get; }
+    public ReactiveCommand<Unit, IProduct> CreateCommand { get; }
 
-    private static IWare SetProductType(IWare ware)
+    private static IProduct SetProductType(IProduct product)
     {
-        return ware switch
+        return product switch
         {
-            Electronics electronicsWare => new Electronics(electronicsWare.Name, electronicsWare.Size,
+            ElectronicProduct electronicsWare => new ElectronicProduct(electronicsWare.Name, electronicsWare.Size,
                 electronicsWare.WarrantyPeriod),
-            Product productWare => new Product(productWare.Name, productWare.Size, productWare.ExpirationDate),
-            _ => ware
+            FoodProduct productWare => new FoodProduct(productWare.Name, productWare.Size, productWare.ExpirationDate),
+            _ => product
         };
     }
 }

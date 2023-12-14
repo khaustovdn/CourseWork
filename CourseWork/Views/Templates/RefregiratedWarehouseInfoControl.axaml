@@ -11,20 +11,13 @@
         <ContentControl x:Name="ContentControl" />
         <TextBlock Grid.Row="1"
                    Text="{Binding SelectedWarehouse.ConvertToRefrigeratedWarehouse.Temperature, StringFormat='Temperature: {0}'}" />
-        <ListBox Grid.Row="2" ItemsSource="{Binding SelectedWarehouse.Products}"
-                 Background="Transparent"
-                 BorderThickness="1"
-                 BorderBrush="#1a1820"
-                 CornerRadius="8">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Grid.Row="3" Command="{Binding AddProductCommand}" />
+        <Button Grid.Row="3" Command="{Binding AddProductCommand}"
+                Background="Transparent" CornerRadius="8"
+                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                Width="36" Height="36"
+                FontSize="18">
+            +
+        </Button>
     </Grid>
 
 </UserControl>

@@ -18,7 +18,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         Manager = new Manager();
         ShowWarehouseDialog = new Interaction<ManagerWindowViewModel, IWarehouse?>();
-        ShowProductDialog = new Interaction<ProductWindowViewModel, IWare?>();
+        ShowProductDialog = new Interaction<ProductWindowViewModel, IProduct?>();
         CreateWarehouseCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var manager = new ManagerWindowViewModel();
@@ -45,7 +45,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ICommand CreateWarehouseCommand { get; }
-    public ICommand AddProductCommand { get; }
+    public ICommand? AddProductCommand { get; }
 
     public UserControl? SelectedWarehouseControl
     {
@@ -55,19 +55,11 @@ public class MainWindowViewModel : ViewModelBase
 
     public IWarehouse? SelectedWarehouse
     {
-        get
-        {
-            return _selectedWarehouse switch
-            {
-                RefrigeratedWarehouse refrigeratedWarehouse => refrigeratedWarehouse,
-                TechnicalWarehouse technicalWarehouse => technicalWarehouse,
-                _ => null
-            };
-        }
+        get => _selectedWarehouse;
         set => this.RaiseAndSetIfChanged(ref _selectedWarehouse, value);
     }
 
     public Manager Manager { get; }
     public Interaction<ManagerWindowViewModel, IWarehouse?> ShowWarehouseDialog { get; }
-    public Interaction<ProductWindowViewModel, IWare?> ShowProductDialog { get; }
+    public Interaction<ProductWindowViewModel, IProduct?> ShowProductDialog { get; }
 }

@@ -1,6 +1,6 @@
 namespace CourseWork.Models;
 
-public interface IWare
+public interface IProduct
 {
     public string? Name { get; }
     public int Size { get; }
