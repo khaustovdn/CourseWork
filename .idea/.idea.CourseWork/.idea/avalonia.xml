@@ -7,6 +7,8 @@
         <entry key="CourseWork/Views/MainWindow.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/ManagerWindow.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/ProductWindow.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/ElectronicsWareTextBox.axaml" value="CourseWork/CourseWork.csproj" />
+        <entry key="CourseWork/Views/Templates/ProductWareTextBox.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefregiratedWarehouseInfoControl.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefregiratedWarehouseTextBlock.axaml" value="CourseWork/CourseWork.csproj" />
         <entry key="CourseWork/Views/Templates/RefrigeratedWarehouseTextBox.axaml" value="CourseWork/CourseWork.csproj" />

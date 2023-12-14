@@ -1,13 +1,11 @@
 namespace CourseWork.Models;
 
-public abstract class Product : IProduct
+public class Product : Ware
 {
-    public string? Name;
-    public int Size;
-
-    protected Product(string? name, int size)
+    public Product(string? name, int size, int expirationDate) : base(name, size)
     {
-        Name = name;
-        Size = size;
+        ExpirationDate = expirationDate;
     }
+
+    public int ExpirationDate { get; }
 }

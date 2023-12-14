@@ -12,7 +12,9 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         InitializeComponent();
         this.WhenActivated(action =>
-            action(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
+            action(ViewModel!.ShowWarehouseDialog.RegisterHandler(DoShowDialogAsync)));
+        this.WhenActivated(action =>
+            action(ViewModel!.ShowProductDialog.RegisterHandler(DoShowDialogAsync)));
     }
 
     private async Task DoShowDialogAsync(InteractionContext<ManagerWindowViewModel, IWarehouse?> interaction)
@@ -20,6 +22,14 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         var dialog = new ManagerWindow { DataContext = interaction.Input };
 
         var result = await dialog.ShowDialog<IWarehouse?>(this);
+        interaction.SetOutput(result);
+    }
+
+    private async Task DoShowDialogAsync(InteractionContext<ProductWindowViewModel, IWare?> interaction)
+    {
+        var dialog = new ProductWindow { DataContext = interaction.Input };
+
+        var result = await dialog.ShowDialog<IWare?>(this);
         interaction.SetOutput(result);
     }
 }
