@@ -4,11 +4,10 @@ using Avalonia.Controls;
 using CourseWork.Models;
 using CourseWork.Views.Templates;
 using ReactiveUI;
-using ReactiveUI.Validation.Helpers;
 
 namespace CourseWork.ViewModels;
 
-public class ManagerWindowViewModel : ReactiveValidationObject
+public class ManagerWindowViewModel : ViewModelBase
 {
     private bool _action;
     private string? _address;

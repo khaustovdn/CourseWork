@@ -52,11 +52,21 @@
                 </ListBox>
             </Grid>
         </SplitView.Pane>
-        <Grid RowDefinitions="Auto, Auto">
-            <ContentControl Grid.Row="0" Content="{Binding SelectedWarehouseControl}" />
+        <Grid RowDefinitions="Auto, Auto,Auto">
+            <DataGrid Grid.Row="0" Margin="20" x:Name="DataWarehouse"
+                      AutoGenerateColumns="True" IsReadOnly="True"
+                      GridLinesVisibility="All" />
             <DataGrid Grid.Row="1" Margin="20" x:Name="DataProducts"
                       AutoGenerateColumns="True" IsReadOnly="True"
                       GridLinesVisibility="All" />
+            <Button Grid.Row="2" x:Name="AddProductButton" Command="{Binding AddProductCommand}"
+                    CornerRadius="8"
+                    IsVisible="False" HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                    Width="128" Height="36"
+                    FontSize="18">
+                +
+            </Button>
         </Grid>
     </SplitView>
 

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace CourseWork.Views.Templates;
 
-public partial class ElectronicsWareTextBox : UserControl
+public partial class ElectronicProductTextBox : UserControl
 {
-    public ElectronicsWareTextBox()
+    public ElectronicProductTextBox()
     {
         InitializeComponent();
     }

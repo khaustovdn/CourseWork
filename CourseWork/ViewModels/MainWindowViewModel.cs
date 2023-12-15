@@ -1,10 +1,7 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Windows.Input;
 using Avalonia.Controls;
 using CourseWork.Models;
-using CourseWork.Views.Templates;
-using DynamicData.Binding;
 using ReactiveUI;
 
 namespace CourseWork.ViewModels;
@@ -30,17 +27,6 @@ public class MainWindowViewModel : ViewModelBase
             var manager = new ProductWindowViewModel(SelectedWarehouse);
             var result = await ShowProductDialog.Handle(manager);
             if (result != null) SelectedWarehouse?.Products.Add(result);
-        });
-
-        this.WhenValueChanged(x => x.SelectedWarehouse).Subscribe(newValue =>
-        {
-            if (newValue is null) return;
-            SelectedWarehouseControl = SelectedWarehouse switch
-            {
-                RefrigeratedWarehouse => new RefrigeratedWarehouseInfoControl(),
-                TechnicalWarehouse => new TechnicalWarehouseInfoControl(),
-                _ => SelectedWarehouseControl
-            };
         });
     }
 

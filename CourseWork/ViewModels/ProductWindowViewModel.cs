@@ -7,7 +7,7 @@ using ReactiveUI;
 
 namespace CourseWork.ViewModels;
 
-public class ProductWindowViewModel : ReactiveObject
+public class ProductWindowViewModel : ViewModelBase
 {
     private string? _expirationDate;
     private string? _name;
@@ -19,8 +19,8 @@ public class ProductWindowViewModel : ReactiveObject
     {
         WareType = selectedWarehouse switch
         {
-            RefrigeratedWarehouse => new ProductWareTextBox(),
-            TechnicalWarehouse => new ElectronicsWareTextBox(),
+            RefrigeratedWarehouse => new FoodProductTextBox(),
+            TechnicalWarehouse => new ElectronicProductTextBox(),
             _ => WareType
         };
 
