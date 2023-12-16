@@ -2,14 +2,13 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using CourseWork.Models;
-using CourseWork.Views.Templates;
 using ReactiveUI;
 
 namespace CourseWork.ViewModels;
 
 public class ManagerWindowViewModel : ViewModelBase
 {
-    private bool _action;
+    private int _action;
     private string? _address;
     private string? _name;
     private string? _powerSupplyLevel;
@@ -34,18 +33,18 @@ public class ManagerWindowViewModel : ViewModelBase
                 int.Parse(b2) > 0 &&
                 !string.IsNullOrWhiteSpace(b3) &&
                 b3.Length > 4 &&
-                ((b4 == false && !string.IsNullOrWhiteSpace(b5) && b5.Length < 4 && int.TryParse(b5, out _)) ||
-                 (b4 && !string.IsNullOrWhiteSpace(b6) && b6.Length < 4 && int.TryParse(b6, out _) &&
+                ((b4 == 0 && !string.IsNullOrWhiteSpace(b5) && b5.Length < 4 && int.TryParse(b5, out _)) ||
+                 (b4 == 1 && !string.IsNullOrWhiteSpace(b6) && b6.Length < 4 && int.TryParse(b6, out _) &&
                   int.Parse(b6) > 0 && int.Parse(b6) <= 10)));
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 1
             ? SetWarehouseType(new TechnicalWarehouse(Name, int.Parse(Size!), Address,
                 int.Parse(PowerSupplyLevel!)))
             : SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address,
                 int.Parse(Temperature!)))), isValid);
     }
 
-    private bool Action
+    public int Action
     {
         get => _action;
         set => this.RaiseAndSetIfChanged(ref _action, value);
@@ -87,20 +86,6 @@ public class ManagerWindowViewModel : ViewModelBase
     {
         get => _size;
         set => this.RaiseAndSetIfChanged(ref _size, value);
-    }
-
-    public void SetAction(string type)
-    {
-        if (type == "refrigerated")
-        {
-            Action = false;
-            WarehouseType = new RefrigeratedWarehouseTextBox();
-        }
-        else
-        {
-            Action = true;
-            WarehouseType = new TechnicalWarehouseTextBox();
-        }
     }
 
     private static IWarehouse SetWarehouseType(IWarehouse warehouse)

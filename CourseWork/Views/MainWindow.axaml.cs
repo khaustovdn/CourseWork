@@ -17,9 +17,10 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         InitializeComponent();
 
         this.WhenActivated(action =>
-            action(ViewModel!.ShowWarehouseDialog.RegisterHandler(DoShowDialogAsync)));
-        this.WhenActivated(action =>
-            action(ViewModel!.ShowProductDialog.RegisterHandler(DoShowDialogAsync)));
+        {
+            action(ViewModel!.ShowProductDialog.RegisterHandler(DoShowDialogAsync));
+            action(ViewModel!.ShowWarehouseDialog.RegisterHandler(DoShowDialogAsync));
+        });
 
         this.WhenAnyValue(x => x.ViewModel!.SelectedWarehouse!.Products.Count)
             .Subscribe(_ =>
@@ -30,9 +31,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                     TechnicalWarehouse => ViewModel.SelectedWarehouse.Products.Select(x => x as ElectronicProduct),
                     _ => DataProducts.ItemsSource
                 };
-
-                if (ViewModel?.SelectedWarehouse?.Products.Count > 0)
-                    DataWarehouse.Columns.RemoveAt(3);
             });
 
         this.WhenValueChanged(x => x.ViewModel!.SelectedWarehouse)
@@ -66,19 +64,19 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             });
     }
 
-    private async Task DoShowDialogAsync(InteractionContext<ManagerWindowViewModel, IWarehouse?> interaction)
+    private async Task DoShowDialogAsync(InteractionContext<ManagerWindowViewModel, Warehouse?> interaction)
     {
         var dialog = new ManagerWindow { DataContext = interaction.Input };
 
-        var result = await dialog.ShowDialog<IWarehouse?>(this);
+        var result = await dialog.ShowDialog<Warehouse?>(this);
         interaction.SetOutput(result);
     }
 
-    private async Task DoShowDialogAsync(InteractionContext<ProductWindowViewModel, IProduct?> interaction)
+    private async Task DoShowDialogAsync(InteractionContext<ProductWindowViewModel, Product?> interaction)
     {
         var dialog = new ProductWindow { DataContext = interaction.Input };
 
-        var result = await dialog.ShowDialog<IProduct?>(this);
+        var result = await dialog.ShowDialog<Product?>(this);
         interaction.SetOutput(result);
     }
 }

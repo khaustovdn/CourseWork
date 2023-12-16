@@ -4,7 +4,7 @@ namespace CourseWork.Models;
 
 public class Manager : ICollection
 {
-    public ObservableCollection<IWarehouse> Warehouses { get; } = new();
+    public ObservableCollection<Warehouse> Warehouses { get; } = new();
 
     public void Add(object? o)
     {

@@ -8,14 +8,14 @@ namespace CourseWork.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    private IWarehouse? _selectedWarehouse;
+    private Warehouse? _selectedWarehouse;
     private UserControl? _selectedWarehouseControl;
 
     public MainWindowViewModel()
     {
         Manager = new Manager();
-        ShowWarehouseDialog = new Interaction<ManagerWindowViewModel, IWarehouse?>();
-        ShowProductDialog = new Interaction<ProductWindowViewModel, IProduct?>();
+        ShowWarehouseDialog = new Interaction<ManagerWindowViewModel, Warehouse?>();
+        ShowProductDialog = new Interaction<ProductWindowViewModel, Product?>();
         CreateWarehouseCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var manager = new ManagerWindowViewModel();
@@ -39,13 +39,13 @@ public class MainWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _selectedWarehouseControl, value);
     }
 
-    public IWarehouse? SelectedWarehouse
+    public Warehouse? SelectedWarehouse
     {
         get => _selectedWarehouse;
         set => this.RaiseAndSetIfChanged(ref _selectedWarehouse, value);
     }
 
     public Manager Manager { get; }
-    public Interaction<ManagerWindowViewModel, IWarehouse?> ShowWarehouseDialog { get; }
-    public Interaction<ProductWindowViewModel, IProduct?> ShowProductDialog { get; }
+    public Interaction<ManagerWindowViewModel, Warehouse?> ShowWarehouseDialog { get; }
+    public Interaction<ProductWindowViewModel, Product?> ShowProductDialog { get; }
 }

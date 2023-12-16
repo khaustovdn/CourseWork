@@ -75,9 +75,9 @@ public class ProductWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _wareType, value);
     }
 
-    public ReactiveCommand<Unit, IProduct> CreateCommand { get; }
+    public ReactiveCommand<Unit, Product> CreateCommand { get; }
 
-    private static IProduct SetProductType(IProduct product)
+    private static Product SetProductType(Product product)
     {
         return product switch
         {
