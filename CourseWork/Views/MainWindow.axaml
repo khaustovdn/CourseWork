@@ -23,7 +23,7 @@
         <SplitView.Pane>
             <Grid RowDefinitions="32, 8, 32, 16, *" Margin="12">
                 <Grid Grid.Row="0">
-                    <Button Command="{Binding CreateWarehouseCommand}"
+                    <Button Command="{Binding AddWarehouseCommand}"
                             Background="Transparent" CornerRadius="8"
                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                             Width="36" Height="36"
@@ -59,15 +59,24 @@
             <DataGrid Grid.Row="1" Margin="20" x:Name="DataProducts"
                       AutoGenerateColumns="True" IsReadOnly="True"
                       Height="200"
-                      GridLinesVisibility="None" />
-            <Button Grid.Row="2" x:Name="AddProductButton" Command="{Binding AddProductCommand}"
-                    CornerRadius="8"
-                    IsVisible="False" HorizontalAlignment="Center"
-                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                    Width="128" Height="36"
-                    FontSize="18">
-                +
-            </Button>
+                      GridLinesVisibility="None"
+                      SelectedItem="{Binding SelectedProduct}" />
+            <Grid Row="2" ColumnDefinitions="Auto, Auto" HorizontalAlignment="Center">
+                <Button Grid.Column="0" x:Name="AddProductButton" Command="{Binding AddProductCommand}"
+                        CornerRadius="8" IsVisible="False"
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                        Width="128" Height="36"
+                        FontSize="18">
+                    +
+                </Button>
+                <Button Grid.Column="1" x:Name="DeleteProductButton" Command="{Binding DeleteProductCommand}"
+                        CornerRadius="8" IsVisible="False"
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                        Width="128" Height="36" Margin="24, 0, 0, 0"
+                        FontSize="18">
+                    -
+                </Button>
+            </Grid>
         </Grid>
     </SplitView>
 

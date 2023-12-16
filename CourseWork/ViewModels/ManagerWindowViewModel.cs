@@ -1,6 +1,5 @@
 using System.Reactive;
 using System.Threading.Tasks;
-using Avalonia.Controls;
 using CourseWork.Models;
 using ReactiveUI;
 
@@ -9,36 +8,28 @@ namespace CourseWork.ViewModels;
 public class ManagerWindowViewModel : ViewModelBase
 {
     private int _action;
-    private string? _address;
-    private string? _name;
-    private string? _powerSupplyLevel;
-    private string? _size;
-    private string? _temperature;
-    private UserControl? _warehouseType;
 
     public ManagerWindowViewModel()
     {
         var isValid = this.WhenAnyValue(
-            x => x.Name,
-            x => x.Size,
-            x => x.Address,
+            x => x.Name.Text,
+            x => x.Size.Text,
+            x => x.Address.Text,
             x => x.Action,
-            x => x.Temperature,
-            x => x.PowerSupplyLevel,
-            (b1, b2, b3, b4, b5, b6) =>
-                !string.IsNullOrWhiteSpace(b1) &&
-                !string.IsNullOrWhiteSpace(b2) &&
-                int.TryParse(b2, out _) &&
-                int.Parse(b2) > 0 &&
-                !string.IsNullOrWhiteSpace(b3) &&
-                ((b4 == 0 && !string.IsNullOrWhiteSpace(b5) && int.TryParse(b5, out _)) ||
-                 (b4 == 1 && !string.IsNullOrWhiteSpace(b6) && int.TryParse(b6, out _) &&
-                  int.Parse(b6) > 0 && int.Parse(b6) <= 10)));
+            x => x.Temperature.Text,
+            x => x.PowerSupplyLevel.Text,
+            (_, _, _, b4, _, _) =>
+                Name.IsValid<string>() && Size.IsValid<int>() && Size.ToInt() > 0 &&
+                Address.IsValid<string>() &&
+                ((b4 == 0 && Temperature.IsValid<int>()) || (b4 == 1 &&
+                                                             PowerSupplyLevel.IsValid<int>() &&
+                                                             PowerSupplyLevel.ToInt() is >= 0 and < 10)));
 
         CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 0
-                ? SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address, int.Parse(Temperature!)))
-                : SetWarehouseType(
-                    new TechnicalWarehouse(Name, int.Parse(Size!), Address, int.Parse(PowerSupplyLevel!)))),
+                ? SetWarehouseType(new RefrigeratedWarehouse(Name.ToString(), Size.ToInt(), Address.ToString(),
+                    Temperature.ToInt()))
+                : SetWarehouseType(new TechnicalWarehouse(Name.ToString(), Size.ToInt(), Address.ToString(),
+                    PowerSupplyLevel.ToInt()))),
             isValid);
     }
 
@@ -48,43 +39,17 @@ public class ManagerWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _action, value);
     }
 
-    public UserControl? WarehouseType
-    {
-        get => _warehouseType;
-        set => this.RaiseAndSetIfChanged(ref _warehouseType, value);
-    }
+    public ConnectedObject Temperature { get; set; } = new();
 
-    public string? Temperature
-    {
-        get => _temperature;
-        set => this.RaiseAndSetIfChanged(ref _temperature, value);
-    }
+    public ConnectedObject PowerSupplyLevel { get; set; } = new();
 
-    public string? PowerSupplyLevel
-    {
-        get => _powerSupplyLevel;
-        set => this.RaiseAndSetIfChanged(ref _powerSupplyLevel, value);
-    }
-
-    public string? Address
-    {
-        get => _address;
-        set => this.RaiseAndSetIfChanged(ref _address, value);
-    }
+    public ConnectedObject Address { get; set; } = new();
 
     public ReactiveCommand<Unit, Warehouse> CreateCommand { get; }
 
-    public string? Name
-    {
-        get => _name;
-        set => this.RaiseAndSetIfChanged(ref _name, value);
-    }
+    public ConnectedObject Name { get; set; } = new();
 
-    public string? Size
-    {
-        get => _size;
-        set => this.RaiseAndSetIfChanged(ref _size, value);
-    }
+    public ConnectedObject Size { get; set; } = new();
 
     private static Warehouse SetWarehouseType(Warehouse warehouse)
     {

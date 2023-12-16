@@ -1,6 +1,5 @@
 ﻿using System.Reactive.Linq;
 using System.Windows.Input;
-using Avalonia.Controls;
 using CourseWork.Models;
 using ReactiveUI;
 
@@ -8,19 +7,24 @@ namespace CourseWork.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private Product? _selectedProduct;
     private Warehouse? _selectedWarehouse;
-    private UserControl? _selectedWarehouseControl;
 
     public MainWindowViewModel()
     {
         Manager = new Manager();
         ShowWarehouseDialog = new Interaction<ManagerWindowViewModel, Warehouse?>();
         ShowProductDialog = new Interaction<ProductWindowViewModel, Product?>();
-        CreateWarehouseCommand = ReactiveCommand.CreateFromTask(async () =>
+        AddWarehouseCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var manager = new ManagerWindowViewModel();
             var result = await ShowWarehouseDialog.Handle(manager);
             if (result != null) Manager.Warehouses.Add(result);
+        });
+        DeleteWarehouseCommand = ReactiveCommand.Create(() =>
+        {
+            if (SelectedWarehouse != null)
+                Manager.Warehouses.Remove(SelectedWarehouse);
         });
         AddProductCommand = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -31,15 +35,22 @@ public class MainWindowViewModel : ViewModelBase
                 if (result != null) SelectedWarehouse?.Products.Add(result);
             }
         });
+        DeleteProductCommand = ReactiveCommand.Create(() =>
+        {
+            if (SelectedProduct != null)
+                SelectedWarehouse?.Products.Remove(SelectedProduct);
+        });
     }
 
-    public ICommand CreateWarehouseCommand { get; }
+    public ICommand AddWarehouseCommand { get; }
+    public ICommand DeleteWarehouseCommand { get; }
     public ICommand? AddProductCommand { get; }
+    public ICommand? DeleteProductCommand { get; }
 
-    public UserControl? SelectedWarehouseControl
+    public Product? SelectedProduct
     {
-        get => _selectedWarehouseControl;
-        set => this.RaiseAndSetIfChanged(ref _selectedWarehouseControl, value);
+        get => _selectedProduct;
+        set => this.RaiseAndSetIfChanged(ref _selectedProduct, value);
     }
 
     public Warehouse? SelectedWarehouse

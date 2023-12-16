@@ -22,9 +22,9 @@
             <ComboBoxItem Content="Refrigerated Warehouse" Width="300" />
             <ComboBoxItem Content="Technical Warehouse" Width="300" />
         </ComboBox>
-        <TextBox Grid.Row="1" Margin="0,16,0,16" CornerRadius="8" Watermark="Name" Text="{Binding Name}" />
-        <TextBox Grid.Row="2" Margin="0,16,0,16" CornerRadius="8" Watermark="Size" Text="{Binding Size}" />
-        <TextBox Grid.Row="3" Margin="0,16,0,16" CornerRadius="8" Watermark="Address" Text="{Binding Address}" />
+        <TextBox Grid.Row="1" Margin="0,16,0,16" CornerRadius="8" Watermark="Name" Text="{Binding Name.Text}" />
+        <TextBox Grid.Row="2" Margin="0,16,0,16" CornerRadius="8" Watermark="Size" Text="{Binding Size.Text}" />
+        <TextBox Grid.Row="3" Margin="0,16,0,16" CornerRadius="8" Watermark="Address" Text="{Binding Address.Text}" />
         <TextBox Grid.Row="4" Margin="0,16,0,16" CornerRadius="8" x:Name="TextBoxWarehouse" />
         <Button Margin="0,16,0,16" Grid.Row="5" Command="{Binding CreateCommand}"
                 Background="Transparent" CornerRadius="8" Width="120"

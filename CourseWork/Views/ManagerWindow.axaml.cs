@@ -22,12 +22,12 @@ public partial class ManagerWindow : ReactiveWindow<ManagerWindowViewModel>
                     {
                         case 0:
                             this.WhenAnyValue(x => x.TextBoxWarehouse.Text)
-                                .BindTo(ViewModel, t => t.Temperature);
+                                .BindTo(ViewModel, t => t.Temperature.Text);
                             TextBoxWarehouse.Watermark = "Temperature";
                             break;
                         case 1:
                             this.WhenAnyValue(x => x.TextBoxWarehouse.Text)
-                                .BindTo(ViewModel, t => t.PowerSupplyLevel);
+                                .BindTo(ViewModel, t => t.PowerSupplyLevel.Text);
                             TextBoxWarehouse.Watermark = "Power Supply Level";
                             break;
                     }

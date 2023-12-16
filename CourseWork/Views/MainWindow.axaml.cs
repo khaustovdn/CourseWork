@@ -33,6 +33,9 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                     };
                 });
 
+            this.WhenAnyValue(x => x.ViewModel!.SelectedProduct)
+                .Subscribe(value => { DeleteProductButton.IsVisible = value != null; });
+
             this.WhenValueChanged(x => x.ViewModel!.SelectedWarehouse)
                 .Subscribe(newValue =>
                 {

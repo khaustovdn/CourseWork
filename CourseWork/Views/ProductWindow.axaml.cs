@@ -22,12 +22,12 @@ public partial class ProductWindow : ReactiveWindow<ProductWindowViewModel>
                     {
                         case 0:
                             this.WhenAnyValue(x => x.TextBoxProduct.Text)
-                                .BindTo(ViewModel, t => t.ExpirationDate);
+                                .BindTo(ViewModel, t => t.ExpirationDate.Text);
                             TextBoxProduct.Watermark = "Expiration Date";
                             break;
                         case 1:
                             this.WhenAnyValue(x => x.TextBoxProduct.Text)
-                                .BindTo(ViewModel, t => t.WarrantyPeriod);
+                                .BindTo(ViewModel, t => t.WarrantyPeriod.Text);
                             TextBoxProduct.Watermark = "Warranty Period";
                             break;
                     }
