@@ -20,23 +20,23 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         {
             action(ViewModel!.ShowProductDialog.RegisterHandler(DoShowDialogAsync));
             action(ViewModel!.ShowWarehouseDialog.RegisterHandler(DoShowDialogAsync));
-        });
 
-        this.WhenAnyValue(x => x.ViewModel!.SelectedWarehouse!.Products.Count)
-            .Subscribe(_ =>
-            {
-                DataProducts.ItemsSource = ViewModel?.SelectedWarehouse switch
+            this.WhenAnyValue(x => x.ViewModel!.SelectedWarehouse, x => x.ViewModel!.SelectedWarehouse!.Products.Count)
+                .Subscribe(newValue =>
                 {
-                    RefrigeratedWarehouse => ViewModel.SelectedWarehouse.Products.Select(x => x as FoodProduct),
-                    TechnicalWarehouse => ViewModel.SelectedWarehouse.Products.Select(x => x as ElectronicProduct),
-                    _ => DataProducts.ItemsSource
-                };
-            });
+                    if (newValue.Item1 == null) return;
+                    DataProducts.ItemsSource = newValue.Item1 switch
+                    {
+                        RefrigeratedWarehouse => newValue.Item1.Products.Cast<FoodProduct>().ToList(),
+                        TechnicalWarehouse => newValue.Item1.Products.Cast<ElectronicProduct>().ToList(),
+                        _ => DataProducts.ItemsSource
+                    };
+                });
 
-        this.WhenValueChanged(x => x.ViewModel!.SelectedWarehouse)
-            .Subscribe(newValue =>
-            {
-                if (newValue != null)
+            this.WhenValueChanged(x => x.ViewModel!.SelectedWarehouse)
+                .Subscribe(newValue =>
+                {
+                    if (newValue == null) return;
                     DataWarehouse.ItemsSource = newValue switch
                     {
                         RefrigeratedWarehouse value => new List<RefrigeratedWarehouse?> { value }
@@ -59,9 +59,9 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                             }).ToList(),
                         _ => DataWarehouse.ItemsSource
                     };
-
-                AddProductButton.IsVisible = true;
-            });
+                    AddProductButton.IsVisible = true;
+                });
+        });
     }
 
     private async Task DoShowDialogAsync(InteractionContext<ManagerWindowViewModel, Warehouse?> interaction)
@@ -74,12 +74,9 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 
     private async Task DoShowDialogAsync(InteractionContext<ProductWindowViewModel, Product?> interaction)
     {
-        if (ViewModel is { SelectedWarehouse: not null })
-        {
-            var dialog = new ProductWindow(ViewModel.SelectedWarehouse) { DataContext = interaction.Input };
+        var dialog = new ProductWindow { DataContext = interaction.Input };
 
-            var result = await dialog.ShowDialog<Product?>(this);
-            interaction.SetOutput(result);
-        }
+        var result = await dialog.ShowDialog<Product?>(this);
+        interaction.SetOutput(result);
     }
 }

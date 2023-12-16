@@ -35,11 +35,11 @@ public class ManagerWindowViewModel : ViewModelBase
                  (b4 == 1 && !string.IsNullOrWhiteSpace(b6) && int.TryParse(b6, out _) &&
                   int.Parse(b6) > 0 && int.Parse(b6) <= 10)));
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 1
-            ? SetWarehouseType(new TechnicalWarehouse(Name, int.Parse(Size!), Address,
-                int.Parse(PowerSupplyLevel!)))
-            : SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address,
-                int.Parse(Temperature!)))), isValid);
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 0
+                ? SetWarehouseType(new RefrigeratedWarehouse(Name, int.Parse(Size!), Address, int.Parse(Temperature!)))
+                : SetWarehouseType(
+                    new TechnicalWarehouse(Name, int.Parse(Size!), Address, int.Parse(PowerSupplyLevel!)))),
+            isValid);
     }
 
     public int Action
@@ -90,12 +90,12 @@ public class ManagerWindowViewModel : ViewModelBase
     {
         return warehouse switch
         {
-            TechnicalWarehouse technicalWarehouse => new TechnicalWarehouse(
-                technicalWarehouse.Name, technicalWarehouse.Size, technicalWarehouse.Address,
-                technicalWarehouse.PowerSupplyLevel),
             RefrigeratedWarehouse refrigeratedWarehouse => new RefrigeratedWarehouse(
                 refrigeratedWarehouse.Name, refrigeratedWarehouse.Size, refrigeratedWarehouse.Address,
                 refrigeratedWarehouse.Temperature),
+            TechnicalWarehouse technicalWarehouse => new TechnicalWarehouse(
+                technicalWarehouse.Name, technicalWarehouse.Size, technicalWarehouse.Address,
+                technicalWarehouse.PowerSupplyLevel),
             _ => warehouse
         };
     }

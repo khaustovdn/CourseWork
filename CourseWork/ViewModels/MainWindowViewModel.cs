@@ -26,7 +26,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             if (SelectedWarehouse != null)
             {
-                var manager = new ProductWindowViewModel(SelectedWarehouse);
+                var manager = new ProductWindowViewModel(SelectedWarehouse is RefrigeratedWarehouse ? 0 : 1);
                 var result = await ShowProductDialog.Handle(manager);
                 if (result != null) SelectedWarehouse?.Products.Add(result);
             }

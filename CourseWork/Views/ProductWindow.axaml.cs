@@ -1,6 +1,5 @@
 using System;
 using Avalonia.ReactiveUI;
-using CourseWork.Models;
 using CourseWork.ViewModels;
 using ReactiveUI;
 
@@ -8,27 +7,25 @@ namespace CourseWork.Views;
 
 public partial class ProductWindow : ReactiveWindow<ProductWindowViewModel>
 {
-    public ProductWindow(Warehouse selectedWarehouse)
+    public ProductWindow()
     {
         InitializeComponent();
-
-        DataContext = new ProductWindowViewModel(selectedWarehouse);
 
         this.WhenActivated(_ =>
         {
             this.WhenAnyObservable(x => x.ViewModel!.CreateCommand).Subscribe(Close);
 
-            this.WhenAnyValue(x => x.ViewModel!.SelectedWarehouse)
+            this.WhenAnyValue(x => x.ViewModel!.Action)
                 .Subscribe(newValue =>
                 {
                     switch (newValue)
                     {
-                        case RefrigeratedWarehouse:
+                        case 0:
                             this.WhenAnyValue(x => x.TextBoxProduct.Text)
                                 .BindTo(ViewModel, t => t.ExpirationDate);
                             TextBoxProduct.Watermark = "Expiration Date";
                             break;
-                        case TechnicalWarehouse:
+                        case 1:
                             this.WhenAnyValue(x => x.TextBoxProduct.Text)
                                 .BindTo(ViewModel, t => t.WarrantyPeriod);
                             TextBoxProduct.Watermark = "Warranty Period";

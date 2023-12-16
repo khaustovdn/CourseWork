@@ -58,7 +58,8 @@
                       GridLinesVisibility="All" />
             <DataGrid Grid.Row="1" Margin="20" x:Name="DataProducts"
                       AutoGenerateColumns="True" IsReadOnly="True"
-                      GridLinesVisibility="All" />
+                      Height="200"
+                      GridLinesVisibility="None" />
             <Button Grid.Row="2" x:Name="AddProductButton" Command="{Binding AddProductCommand}"
                     CornerRadius="8"
                     IsVisible="False" HorizontalAlignment="Center"

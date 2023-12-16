@@ -12,14 +12,14 @@ public class ProductWindowViewModel : ViewModelBase
     private string? _size;
     private string? _warrantyPeriod;
 
-    public ProductWindowViewModel(Warehouse selectedWarehouse)
+    public ProductWindowViewModel(int action = 0)
     {
-        SelectedWarehouse = selectedWarehouse;
+        Action = action;
 
         var isValid = this.WhenAnyValue(
             x => x.Name,
             x => x.Size,
-            x => x.SelectedWarehouse,
+            x => x.Action,
             x => x.ExpirationDate,
             x => x.WarrantyPeriod,
             (b1, b2, b3, b4, b5) =>
@@ -27,15 +27,15 @@ public class ProductWindowViewModel : ViewModelBase
                 !string.IsNullOrWhiteSpace(b2) &&
                 int.TryParse(b2, out _) &&
                 int.Parse(b2) > 0 &&
-                ((b3 is RefrigeratedWarehouse && !string.IsNullOrWhiteSpace(b4) && int.TryParse(b4, out _)) ||
-                 (b3 is TechnicalWarehouse && !string.IsNullOrWhiteSpace(b5) && int.TryParse(b5, out _))));
+                ((b3 == 0 && !string.IsNullOrWhiteSpace(b4) && int.TryParse(b4, out _)) ||
+                 (b3 == 1 && !string.IsNullOrWhiteSpace(b5) && int.TryParse(b5, out _))));
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(selectedWarehouse is RefrigeratedWarehouse
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 0
             ? SetProductType(new FoodProduct(Name, int.Parse(Size!), int.Parse(ExpirationDate!)))
             : SetProductType(new ElectronicProduct(Name, int.Parse(Size!), int.Parse(WarrantyPeriod!)))), isValid);
     }
 
-    public Warehouse SelectedWarehouse { get; }
+    public int Action { get; }
 
     public string? Name
     {
