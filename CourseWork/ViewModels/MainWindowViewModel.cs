@@ -20,13 +20,16 @@ public class MainWindowViewModel : ViewModelBase
         {
             var manager = new ManagerWindowViewModel();
             var result = await ShowWarehouseDialog.Handle(manager);
-            if (result != null) Manager.Add(result);
+            if (result != null) Manager.Warehouses.Add(result);
         });
         AddProductCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var manager = new ProductWindowViewModel(SelectedWarehouse);
-            var result = await ShowProductDialog.Handle(manager);
-            if (result != null) SelectedWarehouse?.Products.Add(result);
+            if (SelectedWarehouse != null)
+            {
+                var manager = new ProductWindowViewModel(SelectedWarehouse);
+                var result = await ShowProductDialog.Handle(manager);
+                if (result != null) SelectedWarehouse?.Products.Add(result);
+            }
         });
     }
 
