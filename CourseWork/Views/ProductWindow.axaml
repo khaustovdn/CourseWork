@@ -9,11 +9,12 @@
         Title="ProductWindow"
         Width="340" Height="460"
         Background="#1a1820">
+
     <Grid RowDefinitions="Auto, Auto, Auto, Auto"
           Width="300" Height="400">
         <TextBox Grid.Row="0" Margin="0,16,0,16" CornerRadius="8" Watermark="Name" Text="{Binding Name}" />
         <TextBox Grid.Row="1" Margin="0,16,0,16" CornerRadius="8" Watermark="Size" Text="{Binding Size}" />
-        <ContentControl Grid.Row="2" Content="{Binding WareType}" />
+        <TextBox Grid.Row="2" Margin="0,16,0,16" CornerRadius="8" x:Name="TextBoxProduct" />
         <Button Margin="0,16,0,16" Grid.Row="3" Command="{Binding CreateCommand}"
                 Background="Transparent" CornerRadius="8" Width="120"
                 HorizontalContentAlignment="Center"
@@ -21,4 +22,5 @@
             Create
         </Button>
     </Grid>
+
 </Window>

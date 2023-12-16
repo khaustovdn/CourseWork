@@ -74,9 +74,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 
     private async Task DoShowDialogAsync(InteractionContext<ProductWindowViewModel, Product?> interaction)
     {
-        var dialog = new ProductWindow { DataContext = interaction.Input };
+        if (ViewModel is { SelectedWarehouse: not null })
+        {
+            var dialog = new ProductWindow(ViewModel.SelectedWarehouse) { DataContext = interaction.Input };
 
-        var result = await dialog.ShowDialog<Product?>(this);
-        interaction.SetOutput(result);
+            var result = await dialog.ShowDialog<Product?>(this);
+            interaction.SetOutput(result);
+        }
     }
 }

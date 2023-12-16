@@ -27,14 +27,12 @@ public class ManagerWindowViewModel : ViewModelBase
             x => x.PowerSupplyLevel,
             (b1, b2, b3, b4, b5, b6) =>
                 !string.IsNullOrWhiteSpace(b1) &&
-                b1.Length > 4 &&
-                !string.IsNullOrWhiteSpace(b2) && b2.Length < 4 &&
+                !string.IsNullOrWhiteSpace(b2) &&
                 int.TryParse(b2, out _) &&
                 int.Parse(b2) > 0 &&
                 !string.IsNullOrWhiteSpace(b3) &&
-                b3.Length > 4 &&
-                ((b4 == 0 && !string.IsNullOrWhiteSpace(b5) && b5.Length < 4 && int.TryParse(b5, out _)) ||
-                 (b4 == 1 && !string.IsNullOrWhiteSpace(b6) && b6.Length < 4 && int.TryParse(b6, out _) &&
+                ((b4 == 0 && !string.IsNullOrWhiteSpace(b5) && int.TryParse(b5, out _)) ||
+                 (b4 == 1 && !string.IsNullOrWhiteSpace(b6) && int.TryParse(b6, out _) &&
                   int.Parse(b6) > 0 && int.Parse(b6) <= 10)));
 
         CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 1
