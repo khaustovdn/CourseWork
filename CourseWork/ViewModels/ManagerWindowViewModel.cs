@@ -72,7 +72,7 @@ public class ManagerWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _address, value);
     }
 
-    public ReactiveCommand<Unit, IWarehouse> CreateCommand { get; }
+    public ReactiveCommand<Unit, Warehouse> CreateCommand { get; }
 
     public string? Name
     {
@@ -86,7 +86,7 @@ public class ManagerWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _size, value);
     }
 
-    private static IWarehouse SetWarehouseType(IWarehouse warehouse)
+    private static Warehouse SetWarehouseType(Warehouse warehouse)
     {
         return warehouse switch
         {

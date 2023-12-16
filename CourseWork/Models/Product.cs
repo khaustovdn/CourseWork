@@ -1,6 +1,6 @@
 namespace CourseWork.Models;
 
-public abstract class Product : ISubject
+public abstract class Product
 {
     protected Product(string? name, int size)
     {

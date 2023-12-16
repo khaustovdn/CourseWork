@@ -10,4 +10,12 @@ public class Manager : ICollection
     {
         if (o is Warehouse warehouse) Warehouses.Add(warehouse);
     }
+
+    public void Remove(int id)
+    {
+    }
+
+    public void ElementAt(int id)
+    {
+    }
 }

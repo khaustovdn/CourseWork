@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace CourseWork.Models;
 
-public abstract class Warehouse : ISubject, IWarehouse, ICollection
+public abstract class Warehouse : ICollection
 {
     protected Warehouse(string? name, int size, string? address)
     {
@@ -11,13 +11,21 @@ public abstract class Warehouse : ISubject, IWarehouse, ICollection
         Address = address;
     }
 
+    public int Size { get; }
+    public string? Name { get; }
+    public string? Address { get; }
+    public ObservableCollection<Product> Products { get; } = new();
+
     public void Add(object? o)
     {
         if (o is Product product) Products.Add(product);
     }
 
-    public int Size { get; }
-    public string? Name { get; }
-    public string? Address { get; }
-    public ObservableCollection<ISubject> Products { get; } = new();
+    public void Remove(int id)
+    {
+    }
+
+    public void ElementAt(int id)
+    {
+    }
 }
