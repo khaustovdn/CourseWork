@@ -1,11 +1,7 @@
 namespace CourseWork.Models;
 
-public class RefrigeratedWarehouse : Warehouse
+public class RefrigeratedWarehouse(string? name, int size, string? city, int temperature)
+    : Warehouse(name, size, city)
 {
-    public RefrigeratedWarehouse(string? name, int size, string? address, int temperature) : base(name, size, address)
-    {
-        Temperature = temperature;
-    }
-
-    public int Temperature { get; }
+    public int Temperature { get; } = temperature;
 }

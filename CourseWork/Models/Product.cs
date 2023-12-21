@@ -1,13 +1,9 @@
 namespace CourseWork.Models;
 
-public abstract class Product
+public abstract class Product(int warehouseId, string? name, int size, int price)
 {
-    protected Product(string? name, int size)
-    {
-        Name = name;
-        Size = size;
-    }
-
-    public string? Name { get; }
-    public int Size { get; }
+    public int WarehouseId { get; } = warehouseId;
+    public string? Name { get; } = name;
+    public int Size { get; } = size;
+    public int Price { get; } = price;
 }

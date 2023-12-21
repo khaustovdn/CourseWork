@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 94737,
+    "Size": 34,
+    "Name": "werw",
+    "City": "\u0410\u0431\u0430\u0437\u0430",
+    "Products": [
+      {
+        "WarehouseId": 94737,
+        "Name": "qweqwe",
+        "Size": 123234,
+        "Price": 234
+      }
+    ]
+  }
+]

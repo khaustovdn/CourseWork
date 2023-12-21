@@ -1,4 +1,7 @@
-﻿using System.Reactive.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Text.Json;
 using System.Windows.Input;
 using CourseWork.Models;
 using ReactiveUI;
@@ -19,31 +22,39 @@ public class MainWindowViewModel : ViewModelBase
         {
             var manager = new ManagerWindowViewModel();
             var result = await ShowWarehouseDialog.Handle(manager);
-            if (result != null) Manager.Warehouses.Add(result);
-        });
-        DeleteWarehouseCommand = ReactiveCommand.Create(() =>
-        {
-            if (SelectedWarehouse != null)
-                Manager.Warehouses.Remove(SelectedWarehouse);
+            if (result != null && Manager.Warehouses.All(x => x.Name != result.Name && x.Id != result.Id))
+            {
+                Manager.Warehouses.Add(result);
+                await using var fs = new FileStream("../../../DataBase/Manager.json", FileMode.Create);
+                await JsonSerializer.SerializeAsync<dynamic>(fs, Manager.Warehouses);
+            }
         });
         AddProductCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             if (SelectedWarehouse != null)
             {
-                var manager = new ProductWindowViewModel(SelectedWarehouse is RefrigeratedWarehouse ? 0 : 1);
+                var manager = new ProductWindowViewModel(SelectedWarehouse);
                 var result = await ShowProductDialog.Handle(manager);
-                if (result != null) SelectedWarehouse?.Products.Add(result);
+                if (result != null)
+                {
+                    SelectedWarehouse?.Products.Add(result);
+                    await using var fs = new FileStream("../../../DataBase/Manager.json", FileMode.Create);
+                    await JsonSerializer.SerializeAsync<dynamic>(fs, Manager.Warehouses);
+                }
             }
         });
         DeleteProductCommand = ReactiveCommand.Create(() =>
         {
             if (SelectedProduct != null)
+            {
                 SelectedWarehouse?.Products.Remove(SelectedProduct);
+                using var fs = new FileStream("../../../DataBase/Manager.json", FileMode.Create);
+                JsonSerializer.Serialize(fs, Manager.Warehouses);
+            }
         });
     }
 
     public ICommand AddWarehouseCommand { get; }
-    public ICommand DeleteWarehouseCommand { get; }
     public ICommand? AddProductCommand { get; }
     public ICommand? DeleteProductCommand { get; }
 

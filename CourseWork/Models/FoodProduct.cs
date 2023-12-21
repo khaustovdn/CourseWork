@@ -1,11 +1,9 @@
+using System;
+
 namespace CourseWork.Models;
 
-public class FoodProduct : Product
+public class FoodProduct(int warehouseId, string? name, int size, int price, DateTime? expirationDate)
+    : Product(warehouseId, name, size, price)
 {
-    public FoodProduct(string? name, int size, int expirationDate) : base(name, size)
-    {
-        ExpirationDate = expirationDate;
-    }
-
-    public int ExpirationDate { get; }
+    public DateTime? ExpirationDate { get; } = expirationDate;
 }

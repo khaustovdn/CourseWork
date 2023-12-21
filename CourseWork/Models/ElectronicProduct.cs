@@ -1,11 +1,9 @@
+using System;
+
 namespace CourseWork.Models;
 
-public class ElectronicProduct : Product
+public class ElectronicProduct(int warehouseId, string? name, int size, int price, DateTime? warrantyPeriod)
+    : Product(warehouseId, name, size, price)
 {
-    public ElectronicProduct(string? name, int size, int warrantyPeriod) : base(name, size)
-    {
-        WarrantyPeriod = warrantyPeriod;
-    }
-
-    public int WarrantyPeriod { get; }
+    public DateTime? WarrantyPeriod { get; } = warrantyPeriod;
 }

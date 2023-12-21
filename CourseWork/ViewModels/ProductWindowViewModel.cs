@@ -1,3 +1,4 @@
+using System;
 using System.Reactive;
 using System.Threading.Tasks;
 using CourseWork.Models;
@@ -7,45 +8,39 @@ namespace CourseWork.ViewModels;
 
 public class ProductWindowViewModel : ViewModelBase
 {
-    public ProductWindowViewModel(int action = 0)
+    public ProductWindowViewModel(Warehouse warehouse)
     {
-        Action = action;
+        Warehouse = warehouse;
 
         var isValid = this.WhenAnyValue(
             x => x.Name.Text,
             x => x.Size.Text,
-            x => x.Action,
+            x => x.Price.Text,
+            x => x.Warehouse,
             x => x.ExpirationDate.Text,
             x => x.WarrantyPeriod.Text,
-            (_, _, b3, _, _) =>
-                Name.IsValid<string>() && Size.IsValid<int>() &&
-                ((b3 == 0 && ExpirationDate.IsValid<int>()) || (b3 == 1 && WarrantyPeriod.IsValid<int>())));
+            (_, _, _, b4, _, _) =>
+                Name.IsValid<string>() && Size.IsValid<int>() && Price.IsValid<int>() &&
+                ((b4 is RefrigeratedWarehouse && ExpirationDate.IsValid<DateTime>()) ||
+                 (b4 is TechnicalWarehouse && WarrantyPeriod.IsValid<DateTime>())));
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 0
-            ? SetProductType(new FoodProduct(Name.ToString(), Size.ToInt(), ExpirationDate.ToInt()))
-            : SetProductType(new ElectronicProduct(Name.ToString(), Size.ToInt(), WarrantyPeriod.ToInt()))), isValid);
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Warehouse is RefrigeratedWarehouse
+            ? SetProductType(new FoodProduct(Warehouse.Id, Name.ToString(), Size.ToInt(), Price.ToInt(),
+                ExpirationDate.ToDate()))
+            : SetProductType(new ElectronicProduct(Warehouse.Id, Name.ToString(), Size.ToInt(), Price.ToInt(),
+                WarrantyPeriod.ToDate()))), isValid);
     }
 
-    public int Action { get; }
-
-    public ConnectedObject Name { get; set; } = new();
-
-    public ConnectedObject Size { get; set; } = new();
-
-    public ConnectedObject WarrantyPeriod { get; set; } = new();
-
-    public ConnectedObject ExpirationDate { get; set; } = new();
-
+    public Warehouse Warehouse { get; }
+    public ValidInput Name { get; set; } = new();
+    public ValidInput Size { get; set; } = new();
+    public ValidInput Price { get; set; } = new();
+    public ValidInput WarrantyPeriod { get; set; } = new();
+    public ValidInput ExpirationDate { get; set; } = new();
     public ReactiveCommand<Unit, Product> CreateCommand { get; }
 
     private static Product SetProductType(Product product)
     {
-        return product switch
-        {
-            FoodProduct productWare => new FoodProduct(productWare.Name, productWare.Size, productWare.ExpirationDate),
-            ElectronicProduct electronicsWare => new ElectronicProduct(electronicsWare.Name, electronicsWare.Size,
-                electronicsWare.WarrantyPeriod),
-            _ => product
-        };
+        return product;
     }
 }

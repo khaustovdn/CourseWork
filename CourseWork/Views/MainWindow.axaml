@@ -54,9 +54,11 @@
         </SplitView.Pane>
         <Grid RowDefinitions="Auto, Auto,Auto">
             <DataGrid Grid.Row="0" Margin="20" x:Name="DataWarehouse"
+                      ColumnWidth="*"
                       AutoGenerateColumns="True" IsReadOnly="True"
                       GridLinesVisibility="All" />
             <DataGrid Grid.Row="1" Margin="20" x:Name="DataProducts"
+                      ColumnWidth="*"
                       AutoGenerateColumns="True" IsReadOnly="True"
                       Height="200"
                       GridLinesVisibility="None"

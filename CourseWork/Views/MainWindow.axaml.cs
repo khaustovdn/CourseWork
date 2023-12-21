@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Media;
 using Avalonia.ReactiveUI;
 using CourseWork.Models;
 using CourseWork.ViewModels;
@@ -25,6 +26,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                 .Subscribe(newValue =>
                 {
                     if (newValue.Item1 == null) return;
+                    DataProducts.Background = newValue.Item1.Products
+                        .Any(x =>
+                            (x as FoodProduct)?.ExpirationDate < DateTime.Now ||
+                            (x as ElectronicProduct)?.WarrantyPeriod < DateTime.Now)
+                        ? Brushes.Red
+                        : DataWarehouse.Background;
                     DataProducts.ItemsSource = newValue.Item1 switch
                     {
                         RefrigeratedWarehouse => newValue.Item1.Products.Cast<FoodProduct>().ToList(),
@@ -46,18 +53,20 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                             .Cast<RefrigeratedWarehouse>()
                             .Select(x => new
                             {
+                                ID = x.Id,
                                 x.Name,
-                                x.Size,
-                                x.Address,
+                                Size_kg = x.Size,
+                                x.City,
                                 x.Temperature
                             }).ToList(),
                         TechnicalWarehouse value => new List<TechnicalWarehouse?> { value }
                             .Cast<TechnicalWarehouse>()
                             .Select(x => new
                             {
+                                ID = x.Id,
                                 x.Name,
-                                x.Size,
-                                x.Address,
+                                Size_kg = x.Size,
+                                x.City,
                                 x.PowerSupplyLevel
                             }).ToList(),
                         _ => DataWarehouse.ItemsSource
