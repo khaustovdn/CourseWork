@@ -26,10 +26,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                 .Subscribe(newValue =>
                 {
                     if (newValue.Item1 == null) return;
-                    DataProducts.Background = newValue.Item1.Products
-                        .Any(x =>
-                            (x as FoodProduct)?.ExpirationDate < DateTime.Now ||
-                            (x as ElectronicProduct)?.WarrantyPeriod < DateTime.Now)
+                    DataProducts.Background = newValue.Item1.CheckDeadline()
                         ? Brushes.Red
                         : DataWarehouse.Background;
                     DataProducts.ItemsSource = newValue.Item1 switch
@@ -55,7 +52,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                             {
                                 ID = x.Id,
                                 x.Name,
-                                Size_kg = x.Size,
+                                x.Size,
                                 x.City,
                                 x.Temperature
                             }).ToList(),
@@ -65,7 +62,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                             {
                                 ID = x.Id,
                                 x.Name,
-                                Size_kg = x.Size,
+                                x.Size,
                                 x.City,
                                 x.PowerSupplyLevel
                             }).ToList(),

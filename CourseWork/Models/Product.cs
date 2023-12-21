@@ -1,9 +1,20 @@
+using System;
+
 namespace CourseWork.Models;
 
-public abstract class Product(int warehouseId, string? name, int size, int price)
+public abstract class Product
 {
-    public int WarehouseId { get; } = warehouseId;
-    public string? Name { get; } = name;
-    public int Size { get; } = size;
-    public int Price { get; } = price;
+    protected Product(string? name, int size, int price)
+    {
+        var random = new Random();
+        Id = random.Next(900) + 100;
+        Name = name;
+        Size = size;
+        Price = price;
+    }
+
+    public string? Name { get; }
+    public int Size { get; }
+    public int Id { get; }
+    public int Price { get; }
 }

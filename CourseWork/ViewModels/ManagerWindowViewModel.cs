@@ -8,21 +8,24 @@ namespace CourseWork.ViewModels;
 public class ManagerWindowViewModel : ViewModelBase
 {
     private int _action;
+    private Warehouse? _warehouse;
 
-    public ManagerWindowViewModel()
+    public ManagerWindowViewModel(Manager manager)
     {
         var isValid = this.WhenAnyValue(
             x => x.Name.Text,
             x => x.Size.Text,
             (_, _) =>
-                Name.IsValid<string>() && Size.IsValid<int>() && Size.ToInt() < 120);
+            {
+                _warehouse = Action == 0
+                    ? SetWarehouseType(new RefrigeratedWarehouse(Name.ToString(), Size.ToInt(), City.ToString(),
+                        Temperature.Number))
+                    : SetWarehouseType(new TechnicalWarehouse(Name.ToString(), Size.ToInt(), City.ToString(),
+                        PowerSupplyLevel.Number));
+                return manager.IsValid(_warehouse);
+            });
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Action == 0
-                ? SetWarehouseType(new RefrigeratedWarehouse(Name.ToString(), Size.ToInt(), City.ToString(),
-                    Temperature.Number))
-                : SetWarehouseType(new TechnicalWarehouse(Name.ToString(), Size.ToInt(), City.ToString(),
-                    PowerSupplyLevel.Number))),
-            isValid);
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(_warehouse!), isValid);
     }
 
     public int Action
@@ -33,7 +36,6 @@ public class ManagerWindowViewModel : ViewModelBase
 
     public ValidInput Temperature { get; set; } = new();
     public ValidInput PowerSupplyLevel { get; set; } = new();
-
     public ValidInput City { get; set; } = new();
     public ReactiveCommand<Unit, Warehouse> CreateCommand { get; }
     public ValidInput Name { get; set; } = new();

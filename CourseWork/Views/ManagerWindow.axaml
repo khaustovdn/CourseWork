@@ -25,9 +25,9 @@
         <TextBox Grid.Row="1" Margin="0,16,0,16" CornerRadius="8" Watermark="Name" Text="{Binding Name.Text}" />
         <TextBox Grid.Row="2" Margin="0,16,0,16" CornerRadius="8" Watermark="Size" Text="{Binding Size.Text}" />
         <ComboBox x:Name="ComboBoxCity" Grid.Row="3" Margin="0,16,0,16" Width="300" SelectedValue="{Binding City.Text}" />
-        <Grid Grid.Row="4" RowDefinitions="Auto, *">
-            <TextBlock x:Name="TextBlockWarehouse" />
-            <Slider Grid.Column="1" Margin="0,16,0,16" CornerRadius="8" x:Name="SliderWarehouse" />
+        <Grid Grid.Row="4" RowDefinitions="Auto, *" Margin="0,16,0,16">
+            <TextBlock Grid.Row="0" x:Name="TextBlockWarehouse" />
+            <Slider Grid.Row="1" CornerRadius="8" x:Name="SliderWarehouse" />
         </Grid>
         <Button Margin="0,16,0,16" Grid.Row="5" Command="{Binding CreateCommand}"
                 Background="Transparent" CornerRadius="8" Width="120"

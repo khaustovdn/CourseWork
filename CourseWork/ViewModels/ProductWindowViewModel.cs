@@ -1,4 +1,3 @@
-using System;
 using System.Reactive;
 using System.Threading.Tasks;
 using CourseWork.Models;
@@ -8,6 +7,8 @@ namespace CourseWork.ViewModels;
 
 public class ProductWindowViewModel : ViewModelBase
 {
+    private Product? _product;
+
     public ProductWindowViewModel(Warehouse warehouse)
     {
         Warehouse = warehouse;
@@ -19,16 +20,17 @@ public class ProductWindowViewModel : ViewModelBase
             x => x.Warehouse,
             x => x.ExpirationDate.Text,
             x => x.WarrantyPeriod.Text,
-            (_, _, _, b4, _, _) =>
-                Name.IsValid<string>() && Size.IsValid<int>() && Price.IsValid<int>() &&
-                ((b4 is RefrigeratedWarehouse && ExpirationDate.IsValid<DateTime>()) ||
-                 (b4 is TechnicalWarehouse && WarrantyPeriod.IsValid<DateTime>())));
+            (_, _, _, _, _, _) =>
+            {
+                _product = Warehouse is RefrigeratedWarehouse
+                    ? SetProductType(new FoodProduct(Name.ToString(), Size.ToInt(), Price.ToInt(),
+                        ExpirationDate.ToDate(), RequiredTemperature.Number))
+                    : SetProductType(new ElectronicProduct(Name.ToString(), Size.ToInt(), Price.ToInt(),
+                        WarrantyPeriod.ToDate()));
+                return warehouse.IsValid(_product);
+            });
 
-        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(Warehouse is RefrigeratedWarehouse
-            ? SetProductType(new FoodProduct(Warehouse.Id, Name.ToString(), Size.ToInt(), Price.ToInt(),
-                ExpirationDate.ToDate()))
-            : SetProductType(new ElectronicProduct(Warehouse.Id, Name.ToString(), Size.ToInt(), Price.ToInt(),
-                WarrantyPeriod.ToDate()))), isValid);
+        CreateCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(_product!), isValid);
     }
 
     public Warehouse Warehouse { get; }
@@ -37,6 +39,8 @@ public class ProductWindowViewModel : ViewModelBase
     public ValidInput Price { get; set; } = new();
     public ValidInput WarrantyPeriod { get; set; } = new();
     public ValidInput ExpirationDate { get; set; } = new();
+
+    public ValidInput RequiredTemperature { get; set; } = new();
     public ReactiveCommand<Unit, Product> CreateCommand { get; }
 
     private static Product SetProductType(Product product)
